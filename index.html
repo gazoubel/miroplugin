@@ -10,7 +10,7 @@
 	
 	async function getCardDataFromJira(issueKey) {
 		//cosnt issueKey = widget.metadata[appIdKey].issueKey;
-		cosnt randomValue = getRandomInt(15);
+		const randomValue = getRandomInt(15);
 		const isVisible = Date.now().getMinutes % 2 ===0;
 		return {
 			//id: w.id, 
@@ -22,7 +22,7 @@
 	}
 	
 	async function syncCardData(appIdKey, widget) {
-		cosnt issueKey = widget.metadata[appIdKey].issueKey;
+		const issueKey = widget.metadata[appIdKey].issueKey;
 		await miro.board.widgets.update({...getCardDataFromJira(issueKey), id: widget.id);
 	}
 
