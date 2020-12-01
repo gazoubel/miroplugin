@@ -3,7 +3,7 @@
 <head>
     <script src="https://miro.com/app/static/sdk.1.1.js"></script>
     <script>
-	let refresh = () => {
+	let refresh = async () => {
 		let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
 		alert(JSON.stringify(result));
 	}
