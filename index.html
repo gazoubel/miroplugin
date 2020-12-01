@@ -30,7 +30,9 @@
 	  
 		let refresh = async () => {
 			let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
-			alert(JSON.stringify(result));
+			result.forEach(w=>miro.board.widgets.update({id: w.id, title: 'issue with key: '+w.title}));
+			//alert(JSON.stringify(result));
+			alert('done');
 		}
 
 		miro.addListener('WIDGETS_CREATED', widget => {
@@ -48,8 +50,9 @@
 		  }
 		}
 
-		onAllWidgetsLoaded(() => {
-		  console.log('all widgets are loaded')
+		onAllWidgetsLoaded(async () => {
+		  console.log('all widgets are loaded');
+		  await refresh();
 		})
     })
     </script>
