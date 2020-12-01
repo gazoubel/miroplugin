@@ -32,7 +32,12 @@
 	  
 		let refresh = async () => {
 			let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
-			result.forEach(w=>miro.board.widgets.update({id: w.id, title: 'issue with key: '+w.title}));
+			result.forEach(w=>{
+				if(w.metadata[appIdKey].issueKey==='hide')
+					w.style.display='none';
+				else
+					miro.board.widgets.update({id: w.id, title: 'From Jira: '+w.metadata[appIdKey].issueKey});
+			});
 			//alert(JSON.stringify(result));
 			alert('done');
 		}
