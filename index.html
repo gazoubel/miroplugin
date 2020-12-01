@@ -23,7 +23,7 @@
 	
 	async function syncCardData(appIdKey, widget) {
 		const issueKey = widget.metadata[appIdKey].issueKey;
-		await miro.board.widgets.update({...getCardDataFromJira(issueKey), id: widget.id);
+		await miro.board.widgets.update({...getCardDataFromJira(issueKey), id: widget.id});
 	}
 
     miro.onReady(async () => {
