@@ -9,6 +9,7 @@
 	
 		const appId = await miro.getClientId();
 		const appIdKey = appId.toString();
+		
 				  
 		miro.initialize({
 			extensionPoints: {
@@ -36,7 +37,7 @@
 				await miro.board.widgets.update({id: w.id, title: 'From Jira: '+w.metadata[appIdKey].issueKey, clientVisible: w.metadata[appIdKey].issueKey==='hide'?false:true});
 			});
 			//alert(JSON.stringify(result));
-			alert('done');
+			alert('done with refresh');
 		}
 
 		miro.addListener('WIDGETS_CREATED', widget => {
@@ -55,8 +56,13 @@
 		}
 
 		onAllWidgetsLoaded(async () => {
-		  console.log('all widgets are loaded');
-		  await refresh();
+			console.log('all widgets are loaded');
+			let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
+			result.forEach(w=>{
+				await miro.board.widgets.update({id: w.id, clientVisible: false});
+			});
+			console.log('all widgets are hiden');
+			await refresh();
 		})
     })
     </script>
