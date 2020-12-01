@@ -8,14 +8,14 @@
 	  return Math.floor(Math.random() * Math.floor(max));
 	}
 	
-	async function getCardDataFromJira(issueKey) {
+	async function getCardDataFromJira(issueKey, widgetId) {
 		//cosnt issueKey = widget.metadata[appIdKey].issueKey;
 		const randomValue = getRandomInt(15);
-		const isVisible = Date.now().getMinutes % 2 ===0;
+		const shouldDisplay =  !issueKey.includes('SECURITY') || Date.now().getMinutes % 2 ===0;
 		return {
-			//id: w.id, 
+			id: widgetId, 
 			title: 'This is the jira title '+randomValue, 
-			clientVisible: (issueKey.includes('SECURITY')&&!isVisible)?false:true,
+			clientVisible: shouldDisplay,
 			card: {"customFields":[{"value":"To Do"+randomValue,"tooltip":"Status"+randomValue,"fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},{"value":issueKey,"iconUrl":"/api/v1/accounts/3074457349429795394/integrations/jira/resource?url=https%3A//citrixmiropoc.atlassian.net/secure/viewavatar?size%3Dmedium%26avatarId%3D10318%26avatarType%3Dissuetype","tooltip":"Issue type, Issue key","fieldType":"string"},{"value":"","iconUrl": "/api/v1/accounts/3074457349429795394/integrations/jira/resource?url=http://localhost:2990/images/icons/priorities/highest.svg","tooltip":"Priority","fieldType":"string"},{"value":"Andrew Roberts"+randomValue,"iconUrl":"/api/v1/accounts/3074457349429795394/integrations/jira/resource?url=https%3A//secure.gravatar.com/avatar/5459fec6b32b5b84b48b91a6fd1c92e7?d%3Dhttps%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAR-6.png","tooltip":"Assignee","fieldType":"string","roundedIcon":true}] }
 		};
 		
@@ -23,7 +23,7 @@
 	
 	async function syncCardData(appIdKey, widget) {
 		const issueKey = widget.metadata[appIdKey].issueKey;
-		await miro.board.widgets.update({...getCardDataFromJira(issueKey), id: widget.id});
+		await miro.board.widgets.update(getCardDataFromJira(issueKey, widget.id));
 	}
 
     miro.onReady(async () => {
