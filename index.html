@@ -10,13 +10,13 @@
 	
 	async function getCardDataFromJira(issueKey, widgetId) {
 		//cosnt issueKey = widget.metadata[appIdKey].issueKey;
-		const randomValue = getRandomInt(15);
-		const isEvenMinutes = new Date().getMinutes() % 2 ===0;
-		const shouldDisplay =  !issueKey.includes('SECURITY') || isEvenMinutes;
+		// const randomValue = getRandomInt(15);
+		// const isEvenMinutes = new Date().getMinutes() % 2 ===0;
+		// const shouldDisplay =  !issueKey.includes('SECURITY') || isEvenMinutes;
 		return {
 			id: widgetId, 
 			title: 'This is the jira title '+randomValue, 
-			clientVisible: shouldDisplay,
+			// clientVisible: shouldDisplay,
 			card: {"customFields":[{"value":"To Do"+randomValue,"tooltip":"Status"+randomValue,"fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},{"value":issueKey,"iconUrl":"https://secure.gravatar.com/avatar/54https://citrixmiropoc.atlassian.net/secure/viewavatar?size%3Dmedium%26avatarId%3D10318%26avatarType%3Dissuetype59fec6b32b5b84b48b91a6fd1c92e7?d%3D","tooltip":"Issue type, Issue key","fieldType":"string"},{"value":"","iconUrl": "https://citrixmiropoc.atlassian.net/images/icons/priorities/highest.svg","tooltip":"Priority","fieldType":"string"},{"value":"Andrew Roberts"+randomValue,"iconUrl":"https://secure.gravatar.com/avatar/5459fec6b32b5b84b48b91a6fd1c92e7?d%3D","tooltip":"Assignee","fieldType":"string","roundedIcon":true}] }
 		};
 		
@@ -34,10 +34,10 @@
 		const appIdKey = appId.toString();
 		
 	//test
-		let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
-		result.forEach(async (w)=>{
-			await miro.board.widgets.update({id: w.id, clientVisible: false});
-		});
+		// let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
+		// result.forEach(async (w)=>{
+		// 	await miro.board.widgets.update({id: w.id, clientVisible: false});
+		// });
 	//end test
 				  
 		miro.initialize({
@@ -79,12 +79,14 @@
 			let syncPromises = [];
 			result.forEach(async (w)=>{
 				syncPromises.push(syncCardData(appIdKey, w));
-				//await syncCardData(appIdKey, w);
-				//await miro.board.widgets.update({id: w.id, title: 'From Jira: '+w.metadata[appIdKey].issueKey, clientVisible: w.metadata[appIdKey].issueKey==='hide'?false:true});
 			});
-			//alert(JSON.stringify(result));
 			//Promise.all(syncPromises).then(()=>	alert('done with refresh'));
 		}
+
+		miro.addListener('SELECTION_UPDATED', (event)=>{
+			miro.showNotification("You clicked a widget!");
+			console.log('SELECTION_UPDATED'+JSON.stringify(event));
+		})
 
 		miro.addListener('WIDGETS_CREATED', widget => {
 		  console.log('WIDGETS_CREATED'+widget);
