@@ -42,7 +42,7 @@
 				svgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
 				onClick: async () => {
 				
-				  alert('Hi with key!'+appIdKey);
+				  //alert('Hi with key!'+appIdKey);
 				  let issueKey = prompt("Please enter the issue key");
 				  miro.board.widgets.create({type: 'card', title: issueKey, metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}});
 				  
@@ -61,7 +61,7 @@
 				//await miro.board.widgets.update({id: w.id, title: 'From Jira: '+w.metadata[appIdKey].issueKey, clientVisible: w.metadata[appIdKey].issueKey==='hide'?false:true});
 			});
 			//alert(JSON.stringify(result));
-			Promise.all(syncPromises).then(()=>	alert('done with refresh'));
+			//Promise.all(syncPromises).then(()=>	alert('done with refresh'));
 		}
 
 		miro.addListener('WIDGETS_CREATED', widget => {
