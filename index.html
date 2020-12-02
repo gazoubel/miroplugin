@@ -93,6 +93,11 @@
 		  syncCardData(appIdKey, widget);
 		})
 
+		miro.addListener('DATA_BROADCASTED', (event)=>{
+			miro.showNotification("Data was broadcasted: "+JSON.stringify(event));
+			console.log('DATA_BROADCASTED'+JSON.stringify(event));
+		})
+		 
 		// For ALL_WIDGETS_LOADED event we need to check if widgets
 		// are already loaded before subscription
 		async function onAllWidgetsLoaded(callback) {
