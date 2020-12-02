@@ -30,15 +30,15 @@
 	}
 
     miro.onReady(async () => {
+		const appId = await miro.getClientId();
+		const appIdKey = appId.toString();
+		
 	//test
 		let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
 		result.forEach(async (w)=>{
 			await miro.board.widgets.update({id: w.id, clientVisible: false});
 		});
 	//end test
-		const appId = await miro.getClientId();
-		const appIdKey = appId.toString();
-		
 				  
 		miro.initialize({
 			extensionPoints: {
