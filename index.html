@@ -11,10 +11,8 @@
 	async function getCardDataFromJira(issueKey, widgetId) {
 		//cosnt issueKey = widget.metadata[appIdKey].issueKey;
 		const randomValue = getRandomInt(15);
-		const isEvenMinutes = Date.now().getMinutes % 2 ===0;
-		alert(issueKey+' isEvenMinutes:'+isEvenMinutes);
+		const isEvenMinutes = new Date().getMinutes() % 2 ===0;
 		const shouldDisplay =  !issueKey.includes('SECURITY') || isEvenMinutes;
-		alert(issueKey+' shouldDisplay:'+shouldDisplay);
 		return {
 			id: widgetId, 
 			title: 'This is the jira title '+randomValue, 
