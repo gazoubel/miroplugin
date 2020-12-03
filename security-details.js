@@ -1,7 +1,7 @@
 let lastSelectedWidgetId
 let widgetName = document.querySelector('#widget-name')
 let widgetInfo = document.querySelector('.widget-info')
-let editor = document.querySelector('#description')
+let description = document.querySelector('#description')
 let placeholder = document.querySelector('.no-selected-widget')
 
 function showElement(el) {
@@ -24,10 +24,9 @@ miro.onReady(async () => {
     if (selectedWidgets.length === 1) {
         showElement(widgetInfo);
         hideElement(placeholder);
-        saveEditorData();
         lastSelectedWidgetId = selectedWidget.id;
         widgetName.innerText = selectedWidget.type;
-        editor.value = 'this is the description of issue: '+ selectedWidget.metadata[appIdKey].issueKey;
+        description.value = 'this is the description of issue: '+ selectedWidget.metadata[appIdKey].issueKey;
     } else {
         showElement(placeholder);
         hideElement(widgetInfo);
