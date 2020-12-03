@@ -22,11 +22,12 @@ miro.onReady(async () => {
     let selectedWidgets = await miro.board.selection.get();
     let selectedWidget = selectedWidgets[0]
     if (selectedWidgets.length === 1) {
+        let issueKey = selectedWidget.metadata[appIdKey].issueKey;
         showElement(widgetInfo);
         hideElement(placeholder);
         lastSelectedWidgetId = selectedWidget.id;
-        widgetName.innerText = selectedWidget.type;
-        description.value = 'this is the description of issue: '+ selectedWidget.metadata[appIdKey].issueKey;
+        widgetName.innerText = "Secure Info for "+issueKey;
+        description.value = 'this is the description of issue: '+ issueKey;
     } else {
         showElement(placeholder);
         hideElement(widgetInfo);
