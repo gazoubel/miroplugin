@@ -27,7 +27,7 @@ miro.onReady(async () => {
         hideElement(placeholder);
         lastSelectedWidgetId = selectedWidget.id;
         widgetName.innerText = "Secure Info for "+issueKey;
-        description.innerText = 'this is the description of issue: '+ issueKey;
+        description.innerHTML = 'this is the <b>description</b> of issue: '+ issueKey;
     } else {
         showElement(placeholder);
         hideElement(widgetInfo);
