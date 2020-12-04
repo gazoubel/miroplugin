@@ -5,24 +5,10 @@
     <script src="./JiraAPI.js"></script>
     <script>
 	
-	// const jiraApi = require('./JiraAPI')
-
-	// function getRandomInt(max) {
-	//   return Math.floor(Math.random() * Math.floor(max));
-	// }
-	
 	async function getCardDataFromJira(issueKey) {
-		//cosnt issueKey = widget.metadata[appIdKey].issueKey;
-		// const randomValue = getRandomInt(15);
-		// const isEvenMinutes = new Date().getMinutes() % 2 ===0;
-		// const shouldDisplay =  !issueKey.includes('SECURITY') || isEvenMinutes;
-		// const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
-		// 	headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
-		// const fields = jiraIssue["fields"];
 		const fields = await JiraAPI.getBasicInfo(issueKey);
 		
 		return {
-			// id: widgetId, 
 			title: fields.summary, 
 			clientVisible: true,
 			card: {"customFields":[
@@ -37,52 +23,50 @@
 	async function syncCardData(appIdKey, widget) {
 		const issueKey = widget.metadata[appIdKey].issueKey;
 		const cardData = await getCardDataFromJira(issueKey);
-		//alert(JSON.stringify(cardData));
 		await miro.board.widgets.update({...{id: widget.id}, ...cardData});
 	}
 
     miro.onReady(async () => {
 		const appId = await miro.getClientId();
 		const appIdKey = appId.toString();
-		
-	//test
-		// let result = await miro.board.widgets.get().then(res=>res.filter(w=>w.metadata && w.metadata[appIdKey] && w.metadata[appIdKey].linkTo === 'jira'));
-		// result.forEach(async (w)=>{
-		// 	await miro.board.widgets.update({id: w.id, clientVisible: false});
-		// });
-	//end test
 				  
 		miro.initialize({
 			extensionPoints: 
 			{
 				getWidgetMenuItems: function (selectedWidgets) {
-				const firstWidget = selectedWidgets[0];
-				if (firstWidget.metadata[appIdKey].linkTo === 'jira') {
-				  return [
-					{
-					  tooltip: "Tooltip message",
-					  svgIcon:
-						'<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
-					  onClick: () => {
-						miro.showNotification("You clicked a widget menu item!");
-						miro.board.ui.openModal("security-details.html", { "max-height": "80%", "min-height": "40%", paddingTop: "20px", "padding-bottom": "20px" });
-					  },
-					},
-				  ];
-				}
-				return [];
+					const firstWidget = selectedWidgets[0];
+					if (firstWidget.metadata && firstWidget.metadata[appIdKey] && firstWidget.metadata[appIdKey].linkTo === 'jira') {
+					return [
+						{
+						tooltip: "Tooltip message",
+						svgIcon:
+							'<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
+						onClick: () => {
+							miro.showNotification("You clicked a widget menu item!");
+							miro.board.ui.openModal("security-details.html", { "max-height": "80%", "min-height": "40%", paddingTop: "20px", "padding-bottom": "20px" });
+						},
+						},
+					];
+					}
+					return [];
 				},
-					bottomBar: {
-					title: 'Some title',
+				bottomBar: {
+					title: 'Add jira issue',
 					svgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
 					onClick: async () => {
-						//alert('Hi with key!'+appIdKey);
 						let issueKey = prompt("Please enter the issue key");
 						const cardData = await getCardDataFromJira(issueKey);
-						// miro.board.widgets.create({type: 'card', title: issueKey, metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}});
 						miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
-						
-						//miro.board.widgets.create({type: 'card', title: issueKey, metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}, card: {"customFields":[{"value":"To Do","tooltip":"Status","fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},{"value":"MIRO-4","iconUrl":"/api/v1/accounts/3074457349429795394/integrations/jira/resource?url=https%3A//citrixmiropoc.atlassian.net/secure/viewavatar?size%3Dmedium%26avatarId%3D10318%26avatarType%3Dissuetype","tooltip":"Issue type, Issue key","fieldType":"string"},{"value":"","iconUrl": "/api/v1/accounts/3074457349429795394/integrations/jira/resource?url=http://localhost:2990/images/icons/priorities/highest.svg","tooltip":"Priority","fieldType":"string"},{"value":"Andrew Roberts","iconUrl":"/api/v1/accounts/3074457349429795394/integrations/jira/resource?url=https%3A//secure.gravatar.com/avatar/5459fec6b32b5b84b48b91a6fd1c92e7?d%3Dhttps%3A%2F%2Favatar-management--avatars.us-west-2.prod.public.atl-paas.net%2Finitials%2FAR-6.png","tooltip":"Assignee","fieldType":"string","roundedIcon":true}] }});
+					}
+				},
+				toolbar: {
+					title: 'Add Jira Issue',
+					toolbarSvgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
+					librarySvgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
+					onClick: async () => {
+						let issueKey = prompt("Please enter the issue key");
+						const cardData = await getCardDataFromJira(issueKey);
+						miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
 					}
 				}
 			}
@@ -96,6 +80,21 @@
 			});
 			//Promise.all(syncPromises).then(()=>	alert('done with refresh'));
 		}
+		
+		async function onAllWidgetsLoaded(callback) {
+		  const areAllWidgetsLoaded = await miro.board.widgets.areAllWidgetsLoaded()
+		  if (areAllWidgetsLoaded) {
+			callback()
+		  } else {
+			miro.addListener('ALL_WIDGETS_LOADED', callback)
+		  }
+		}
+
+		onAllWidgetsLoaded(async () => {
+			miro.showNotification("Started syncing jira data!");
+			await refresh();
+			miro.showNotification("Finished syncing jira data!");
+		})
 
 		// miro.addListener('SELECTION_UPDATED', (event)=>{
 		// 	miro.showNotification("You clicked a widget!");
@@ -119,20 +118,6 @@
 		
 		// For ALL_WIDGETS_LOADED event we need to check if widgets
 		// are already loaded before subscription
-		async function onAllWidgetsLoaded(callback) {
-		  const areAllWidgetsLoaded = await miro.board.widgets.areAllWidgetsLoaded()
-		  if (areAllWidgetsLoaded) {
-			callback()
-		  } else {
-			miro.addListener('ALL_WIDGETS_LOADED', callback)
-		  }
-		}
-
-		onAllWidgetsLoaded(async () => {
-			miro.showNotification("Started syncing jira data!");
-			await refresh();
-			miro.showNotification("Finished syncing jira data!");
-		})
     })
     </script>
 </head>
