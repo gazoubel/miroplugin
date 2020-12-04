@@ -4,8 +4,7 @@ let widgetInfo = document.querySelector('.widget-info')
 let description = document.querySelector('#description')
 let placeholder = document.querySelector('.no-selected-widget')
 
-const jiraApi = require('./JiraAPI')
-
+// const jiraApi = require('./JiraAPI')
 function showElement(el) {
   el.style.display = 'block'
 }
@@ -28,7 +27,7 @@ miro.onReady(async () => {
         // const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
         // headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
         // const fields = jiraIssue["fields"];
-        const fields = await jiraApi.getSecuredInfo(issueKey);
+        const fields = await JiraAPI.getSecuredInfo(issueKey);
         showElement(widgetInfo);
         hideElement(placeholder);
         lastSelectedWidgetId = selectedWidget.id;

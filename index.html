@@ -2,9 +2,10 @@
 <html lang="en">
 <head>
     <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <script src="./JiraAPI.js"></script>
     <script>
 	
-	const jiraApi = require('./JiraAPI')
+	// const jiraApi = require('./JiraAPI')
 
 	// function getRandomInt(max) {
 	//   return Math.floor(Math.random() * Math.floor(max));
@@ -18,7 +19,7 @@
 		// const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
 		// 	headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
 		// const fields = jiraIssue["fields"];
-		const fields = await jiraApi.getBasicInfo(issueKey);
+		const fields = await JiraAPI.getBasicInfo(issueKey);
 		
 		return {
 			id: widgetId, 
