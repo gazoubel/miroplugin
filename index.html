@@ -11,7 +11,7 @@
 	//   return Math.floor(Math.random() * Math.floor(max));
 	// }
 	
-	async function getCardDataFromJira(issueKey, widgetId) {
+	async function getCardDataFromJira(issueKey) {
 		//cosnt issueKey = widget.metadata[appIdKey].issueKey;
 		// const randomValue = getRandomInt(15);
 		// const isEvenMinutes = new Date().getMinutes() % 2 ===0;
@@ -22,7 +22,7 @@
 		const fields = await JiraAPI.getBasicInfo(issueKey);
 		
 		return {
-			id: widgetId, 
+			// id: widgetId, 
 			title: fields.summary, 
 			clientVisible: true,
 			card: {"customFields":[
@@ -36,9 +36,9 @@
 	
 	async function syncCardData(appIdKey, widget) {
 		const issueKey = widget.metadata[appIdKey].issueKey;
-		const cardData = await getCardDataFromJira(issueKey, widget.id);
+		const cardData = await getCardDataFromJira(issueKey);
 		//alert(JSON.stringify(cardData));
-		await miro.board.widgets.update(cardData);
+		await miro.board.widgets.update({...{id: widget.id}, ...cardData});
 	}
 
     miro.onReady(async () => {
@@ -78,7 +78,7 @@
 					onClick: async () => {
 						//alert('Hi with key!'+appIdKey);
 						let issueKey = prompt("Please enter the issue key");
-						const cardData = await getCardDataFromJira(issueKey, widget.id);
+						const cardData = await getCardDataFromJira(issueKey);
 						// miro.board.widgets.create({type: 'card', title: issueKey, metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}});
 						miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
 						
