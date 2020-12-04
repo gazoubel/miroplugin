@@ -23,11 +23,14 @@ miro.onReady(async () => {
     let selectedWidget = selectedWidgets[0]
     if (selectedWidgets.length === 1) {
         let issueKey = selectedWidget.metadata[appIdKey].issueKey;
+        const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
+        headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
+        const fields = jiraIssue["fields"];
         showElement(widgetInfo);
         hideElement(placeholder);
         lastSelectedWidgetId = selectedWidget.id;
         widgetName.innerText = "Secure Info for "+issueKey;
-        description.innerHTML = 'this is the <b>description</b> of issue: '+ issueKey;
+        description.innerHTML = fields.description;
     } else {
         showElement(placeholder);
         hideElement(widgetInfo);

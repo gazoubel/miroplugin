@@ -13,11 +13,19 @@
 		const randomValue = getRandomInt(15);
 		// const isEvenMinutes = new Date().getMinutes() % 2 ===0;
 		// const shouldDisplay =  !issueKey.includes('SECURITY') || isEvenMinutes;
+		const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
+			headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
+		const fields = jiraIssue["fields"];
+		
 		return {
 			id: widgetId, 
-			title: 'This is the jira title '+randomValue, 
+			title: fields.summary, 
 			clientVisible: true,
-			card: {"customFields":[{"value":"To Do"+randomValue,"tooltip":"Status"+randomValue,"fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},{"value":issueKey,"iconUrl":"https://secure.gravatar.com/avatar/54https://citrixmiropoc.atlassian.net/secure/viewavatar?size%3Dmedium%26avatarId%3D10318%26avatarType%3Dissuetype59fec6b32b5b84b48b91a6fd1c92e7?d%3D","tooltip":"Issue type, Issue key","fieldType":"string"},{"value":"","iconUrl": "https://citrixmiropoc.atlassian.net/images/icons/priorities/highest.svg","tooltip":"Priority","fieldType":"string"},{"value":"Andrew Roberts"+randomValue,"iconUrl":"https://secure.gravatar.com/avatar/5459fec6b32b5b84b48b91a6fd1c92e7?d%3D","tooltip":"Assignee","fieldType":"string","roundedIcon":true}] }
+			card: {"customFields":[
+				{"value":fields.status.name,"tooltip":"Status","fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},
+				{"value":issueKey,"iconUrl":fields.issuetype.iconUrl,"tooltip":"Jira issue ("+fields.issuetype.name+")","fieldType":"string"},
+				{"value":"","iconUrl": fields.priority.iconUrl,"tooltip":fields.priority.name,"fieldType":"string"},
+				{"value":fields.assignee==null?'undefined':fields.assignee.name,"iconUrl":fields.assignee==null?"":fields.assignee.avatarUrl,"tooltip":"Assignee","fieldType":"string","roundedIcon":true}] }
 		};
 		
 	}
