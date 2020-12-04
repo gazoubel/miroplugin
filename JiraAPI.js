@@ -1,11 +1,11 @@
-function getBasicInfo(issueKey) {
+async function getBasicInfo(issueKey) {
     const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
     headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
     const fields = jiraIssue["fields"];
     return fields;
 }
 
-function getSecuredInfo(issueKey) {
+async function getSecuredInfo(issueKey) {
     const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
     headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
     const fields = jiraIssue["fields"];
