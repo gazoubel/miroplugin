@@ -66,7 +66,7 @@
 					librarySvgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
 					onClick: async () => {
 						let issueKey = prompt("Please enter the issue key");
-						const cardData = await getCardDataFromJira(issueKey);
+						const cardData = await JiraAPI.getCardDataFromJira(issueKey);
 						miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
 					}
 				}
