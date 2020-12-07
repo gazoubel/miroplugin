@@ -8,10 +8,9 @@
     <style>
     </style>
     <script>
-		const appId = await miro.getClientId();
-        const appIdKey = appId.toString();
-        
         function createMiroCard(){
+            const appId = await miro.getClientId();
+            const appIdKey = appId.toString();
             let issueKey = document.querySelector('#issue-key')
             const cardData = await JiraAPI.getCardDataFromJira(issueKey);
             miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
