@@ -16,6 +16,7 @@ const JiraAPI = {
             return {
                 title: fields.summary, 
                 clientVisible: true,
+                bounds:{height: "400", width:"1200"},
                 card: {"customFields":[
                     {"value":fields.status.name,"tooltip":"Status","fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},
                     {"value":issueKey,"iconUrl":fields.issuetype.iconUrl,"tooltip":"Jira issue ("+fields.issuetype.name+")","fieldType":"string"},
