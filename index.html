@@ -56,7 +56,7 @@
 					onClick: async () => {
 						// miro.board.ui.openLibrary('add-issue-modal.html', {title: 'Select Jira Issue'})
 						let issueKey = prompt("Please enter the issue key");
-						const cardData = await getCardDataFromJira(issueKey);
+						const cardData = await JiraAPI.getCardDataFromJira(issueKey);
 						miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
 					}
 				},
