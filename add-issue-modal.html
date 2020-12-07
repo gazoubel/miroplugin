@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="https://miro.com/app/static/styles.1.0.css" />
+    <script src="./JiraAPI.js"></script>
+    
+    <style>
+    </style>
+    <script>
+		const appId = await miro.getClientId();
+        const appIdKey = appId.toString();
+        
+        function createMiroCard(){
+            let issueKey = document.querySelector('#issue-key')
+            const cardData = await JiraAPI.getCardDataFromJira(issueKey);
+            miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
+        }
+    </script>
+  </head>
+
+  <body style="padding: 20px">
+    <input id="issue-key" class="miro-input--primary" placeholder="enter Jira issue key">
+    <button id="addJiraIssue" class="miro-btn miro-btn--primary miro-btn--medium" onclick="createMiroCard()">Add</button>
+    <script src="https://miro.com/app/static/sdk.1.1.js"></script>
+    <!-- <script src="security-details.js"></script> -->
+  </body>
+</html>
