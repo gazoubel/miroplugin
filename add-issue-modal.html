@@ -8,7 +8,7 @@
     <style>
     </style>
     <script>
-        function createMiroCard(){
+        async function createMiroCard(){
             const appId = await miro.getClientId();
             const appIdKey = appId.toString();
             let issueKey = document.querySelector('#issue-key')
