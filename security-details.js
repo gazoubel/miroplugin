@@ -35,6 +35,8 @@ miro.onReady(async () => {
 
         for (fieldName in fields){
           var descriptionHeaderElement = document.createElement("div");
+          descriptionHeaderElement.style.cssText="margin-top: 7px;";
+          
           var descriptionHeaderElementBold = document.createElement("b");
           var descriptionHeaderText = document.createTextNode(fieldName);
           descriptionHeaderElementBold.appendChild(descriptionHeaderText);
@@ -48,7 +50,7 @@ miro.onReady(async () => {
           widgetInfo.appendChild(descriptionElement);
         }
 
-        description.innerHTML = fields.description;
+        // description.innerHTML = fields.description;
     } else {
         showElement(placeholder);
         hideElement(widgetInfo);
