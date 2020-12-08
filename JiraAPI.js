@@ -6,10 +6,17 @@ const JiraAPI = {
             .then(data=>data["fields"]);
     },
     getSecuredInfo(issueKey) {
-        return fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey+'?fields=summary,description', {method:'GET', 
+        return fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
         headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
             .then(resp=>resp.json())
-            .then(data=>data["fields"]);
+            .then(data=>data["fields"].map(fields=>{
+                return {
+                    Summary: fields['summary'],
+                    Priority: fields.priority?fields.priority.name:'undefined',
+                    Assignee: fields.assignee?fields.assignee.name:'undefined',
+                    Description: fields['description'],
+                }
+            }));
     },
     getCardDataFromJira(issueKey) {
 		return JiraAPI.getBasicInfo(issueKey).then(fields=>{
