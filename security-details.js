@@ -34,16 +34,16 @@ miro.onReady(async () => {
         widgetName.innerText = "Secure Info for "+issueKey;
 
         for (fieldName in fields){
-          var descriptionHeaderElement = widgetInfo.createElement("b");
-          var descriptionHeaderText = widgetInfo.createTextNode(fieldName);
+          var descriptionHeaderElement = document.createElement("b");
+          var descriptionHeaderText = document.createTextNode(fieldName);
           descriptionHeaderElement.appendChild(descriptionHeaderText);
-          var element = widgetInfo.getElementById("div1");
-          element.appendChild(descriptionHeaderElement);
+          // var element = widgetInfo.getElementById("div1");
+          widgetInfo.appendChild(descriptionHeaderElement);
 
-          var descriptionElement = widgetInfo.createElement("div");
-          var descriptionText = widgetInfo.createTextNode(fields[fieldName]);
+          var descriptionElement = document.createElement("div");
+          var descriptionText = document.createTextNode(fields[fieldName]);
           descriptionElement.appendChild(descriptionText);
-          element.appendChild(descriptionElement);
+          widgetInfo.appendChild(descriptionElement);
         }
 
         description.innerHTML = fields.description;
