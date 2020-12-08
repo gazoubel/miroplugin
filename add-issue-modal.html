@@ -13,8 +13,15 @@
             const appIdKey = appId.toString();
             let issueKeyElement = document.querySelector('#issue-key')
             let issueKey = issueKeyElement.value;
-            const cardData = await JiraAPI.getCardDataFromJira(issueKey);
-            miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
+
+            return JiraAPI.getCardDataFromJira(issueKey)
+                .then(cardData=>miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData}))
+                .catch(error=>{
+                    miro.showNotification("Issue not found! -> "+ JSON.stringify(error));
+                });
+
+            // const cardData = await JiraAPI.getCardDataFromJira(issueKey);
+            // miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
         }
     </script>
   </head>

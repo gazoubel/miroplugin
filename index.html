@@ -42,7 +42,7 @@
 						svgIcon:
 							'<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
 						onClick: () => {
-							miro.showNotification("You clicked a widget menu item!");
+							// miro.showNotification("You clicked a widget menu item!");
 							miro.board.ui.openModal("security-details.html", { "max-height": "80%", "min-height": "40%", paddingTop: "20px", "padding-bottom": "20px" });
 						},
 						},
@@ -62,8 +62,16 @@
 				},
 				toolbar: {
 					title: 'Add Jira Issue',
-					toolbarSvgIcon: '<circle cx="12" cy="12" r="9" fill="red" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
-					librarySvgIcon: '<circle cx="12" cy="12" r="9" fill="blue" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/',
+					toolbarSvgIcon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 12.1716L8.70711 9.87871C8.31658 9.48818 7.68342 9.48818 7.29289 9.87871C6.90237 10.2692 6.90237 10.9024 7.29289 11.2929L12 16L16.7071 11.2929C17.0976 10.9024 17.0976 10.2692 16.7071 9.87871C16.3166 9.48818 15.6834 9.48818 15.2929 9.87871L13 12.1716V2.58582C13 2.03353 12.5523 1.58582 12 1.58582C11.4477 1.58582 11 2.03353 11 2.58582V12.1716Z" fill="#050038"/>
+<path d="M3 19C2.44772 19 2 19.4477 2 20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20C22 19.4477 21.5523 19 21 19H3Z" fill="#050038"/>
+</svg>
+`,
+					librarySvgIcon: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M11 12.1716L8.70711 9.87871C8.31658 9.48818 7.68342 9.48818 7.29289 9.87871C6.90237 10.2692 6.90237 10.9024 7.29289 11.2929L12 16L16.7071 11.2929C17.0976 10.9024 17.0976 10.2692 16.7071 9.87871C16.3166 9.48818 15.6834 9.48818 15.2929 9.87871L13 12.1716V2.58582C13 2.03353 12.5523 1.58582 12 1.58582C11.4477 1.58582 11 2.03353 11 2.58582V12.1716Z" fill="#050038"/>
+<path d="M3 19C2.44772 19 2 19.4477 2 20C2 20.5523 2.44772 21 3 21H21C21.5523 21 22 20.5523 22 20C22 19.4477 21.5523 19 21 19H3Z" fill="#050038"/>
+</svg>
+`,
 					onClick: async () => {
 						miro.board.ui.openLibrary('add-issue-modal.html', {title: 'Select Jira Issue', height: '300px', width:'400px'})
 						// let issueKey = prompt("Please enter the issue key");
