@@ -60,6 +60,7 @@
 </svg>`,
 							onClick: () => {
 								miro.showNotification("Refreshing card data...");
+								syncCardData(appIdKey, firstWidget).then(()=>miro.showNotification("Card data refresh finished"));
 							},
 						}
 					];
