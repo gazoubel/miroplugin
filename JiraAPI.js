@@ -24,15 +24,14 @@ const JiraAPI = {
         headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
             .then(resp=>resp.json())
             .then(data=>data["fields"])
-            .then(fields=>{
-                return 
+            .then(fields=> 
                 [
                     {name: 'Summary', value: fields['summary']},
                     {name: 'Priority', value: fields.priority?fields.priority.name:'undefined'},
                     {name: 'Assignee', value:fields.assignee?fields.assignee.name:'undefined'},
                     {name: 'Description', value: fields['description']}
                 ]
-            });;
+            );
     },
     getCardDataFromJira(issueKey) {
 		return JiraAPI.getBasicInfo(issueKey).then(fields=>{
