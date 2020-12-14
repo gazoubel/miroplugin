@@ -5,18 +5,33 @@ const JiraAPI = {
             .then(resp=>resp.json())
             .then(data=>data["fields"]);
     },
+    // getSecuredInfo(issueKey) {
+    //     return fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
+    //     headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
+    //         .then(resp=>resp.json())
+    //         .then(data=>data["fields"])
+    //         .then(fields=>{
+    //             return {
+    //                 Summary: fields['summary'],
+    //                 Priority: fields.priority?fields.priority.name:'undefined',
+    //                 Assignee: fields.assignee?fields.assignee.name:'undefined',
+    //                 Description: fields['description'],
+    //             }
+    //         });;
+    // },
     getSecuredInfo(issueKey) {
         return fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
         headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
             .then(resp=>resp.json())
             .then(data=>data["fields"])
             .then(fields=>{
-                return {
-                    Summary: fields['summary'],
-                    Priority: fields.priority?fields.priority.name:'undefined',
-                    Assignee: fields.assignee?fields.assignee.name:'undefined',
-                    Description: fields['description'],
-                }
+                return 
+                [
+                    {name: 'Summary', value: fields['summary']},
+                    {name: 'Priority', value: fields.priority?fields.priority.name:'undefined'},
+                    {name: 'Assignee', value:fields.assignee?fields.assignee.name:'undefined'},
+                    {name: 'Description', value: fields['description']}
+                ]
             });;
     },
     getCardDataFromJira(issueKey) {

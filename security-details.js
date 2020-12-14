@@ -32,23 +32,38 @@ miro.onReady(async () => {
         hideElement(placeholder);
         lastSelectedWidgetId = selectedWidget.id;
         widgetName.innerText = "Secure Info for "+issueKey;
-
-        for (fieldName in fields){
+        for (field in fields){
           var descriptionHeaderElement = document.createElement("div");
           descriptionHeaderElement.style.cssText="margin-top: 7px;";
           
           var descriptionHeaderElementBold = document.createElement("b");
-          var descriptionHeaderText = document.createTextNode(fieldName);
+          var descriptionHeaderText = document.createTextNode(field.name);
           descriptionHeaderElementBold.appendChild(descriptionHeaderText);
           descriptionHeaderElement.appendChild(descriptionHeaderElementBold);
           // var element = widgetInfo.getElementById("div1");
           widgetInfo.appendChild(descriptionHeaderElement);
 
           var descriptionElement = document.createElement("div");
-          var descriptionText = document.createTextNode(fields[fieldName]);
+          var descriptionText = document.createTextNode(field.value);
           descriptionElement.appendChild(descriptionText);
           widgetInfo.appendChild(descriptionElement);
         }
+        // for (fieldName in fields){
+        //   var descriptionHeaderElement = document.createElement("div");
+        //   descriptionHeaderElement.style.cssText="margin-top: 7px;";
+          
+        //   var descriptionHeaderElementBold = document.createElement("b");
+        //   var descriptionHeaderText = document.createTextNode(fieldName);
+        //   descriptionHeaderElementBold.appendChild(descriptionHeaderText);
+        //   descriptionHeaderElement.appendChild(descriptionHeaderElementBold);
+        //   // var element = widgetInfo.getElementById("div1");
+        //   widgetInfo.appendChild(descriptionHeaderElement);
+
+        //   var descriptionElement = document.createElement("div");
+        //   var descriptionText = document.createTextNode(fields[fieldName]);
+        //   descriptionElement.appendChild(descriptionText);
+        //   widgetInfo.appendChild(descriptionElement);
+        // }
 
         // description.innerHTML = fields.description;
     } else {
