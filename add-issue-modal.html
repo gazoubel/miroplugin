@@ -16,6 +16,7 @@
 
             return JiraAPI.getCardDataFromJira(issueKey)
                 .then(cardData=>miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData}))
+                .then(()=>miro.board.ui.closeModal())
                 .catch(error=>{
                     console.log(JSON.stringify(error));
                     miro.showNotification("Issue not found!");
@@ -28,6 +29,7 @@
   </head>
 
   <body style="padding: 20px;display: flex; flex-direction: column;">
+    <h1>Add Jira Issue</h1>
     <input id="issue-key" class="miro-input miro-input--primary" placeholder="enter Jira issue key" style="margin: 5px;">
     <button id="addJiraIssue" class="miro-btn miro-btn--primary miro-btn--medium" onclick="createMiroCard()" style="margin: 5px;">Add</button>
     <script src="https://miro.com/app/static/sdk.1.1.js"></script>
