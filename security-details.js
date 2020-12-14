@@ -32,7 +32,7 @@ miro.onReady(async () => {
         hideElement(placeholder);
         lastSelectedWidgetId = selectedWidget.id;
         widgetName.innerText = "Secure Info for "+issueKey;
-        for (field in fields){
+        fields.forEach(field=>{
           var descriptionHeaderElement = document.createElement("div");
           descriptionHeaderElement.style.cssText="margin-top: 7px;";
           
@@ -47,7 +47,7 @@ miro.onReady(async () => {
           var descriptionText = document.createTextNode(field.value);
           descriptionElement.appendChild(descriptionText);
           widgetInfo.appendChild(descriptionElement);
-        }
+        });
         // for (fieldName in fields){
         //   var descriptionHeaderElement = document.createElement("div");
         //   descriptionHeaderElement.style.cssText="margin-top: 7px;";
