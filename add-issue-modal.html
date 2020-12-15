@@ -26,10 +26,10 @@
             // miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
         }
     </script>
+    <h1>Add Jira Issue</h1>
   </head>
 
-  <body style="padding: 20px;display: flex; flex-direction: column;">
-    <h1>Add Jira Issue</h1>
+  <body style="padding: 20px;display: flex; flex-direction: column;justify-content: space-evenly;">
     <input id="issue-key" class="miro-input miro-input--primary" placeholder="enter Jira issue key" style="margin: 5px;">
     <button id="addJiraIssue" class="miro-btn miro-btn--primary miro-btn--medium" onclick="createMiroCard()" style="margin: 5px;width: 40px; align-self: flex-end;">Add</button>
     <script src="https://miro.com/app/static/sdk.1.1.js"></script>
