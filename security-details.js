@@ -31,7 +31,7 @@ miro.onReady(async () => {
         fields.sort((a,b)=>{
           if(!a.row && !b.row) return 0;
           if(a.row && !b.row) return -1;
-          if(!a.row && b.row) return -1;
+          if(!a.row && b.row) return 1;
           if(a.row<b.row) return -1;
           if(a.row>b.row) return 1;
           return 0;
