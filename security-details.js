@@ -4,7 +4,6 @@ let widgetInfo = document.querySelector('.widget-info')
 let description = document.querySelector('#description')
 let placeholder = document.querySelector('.no-selected-widget')
 
-// const jiraApi = require('./JiraAPI')
 function showElement(el) {
   el.style.display = 'block'
 }
@@ -24,15 +23,19 @@ miro.onReady(async () => {
     let selectedWidget = selectedWidgets[0]
     if (selectedWidgets.length === 1) {
         let issueKey = selectedWidget.metadata[appIdKey].issueKey;
-        // const jiraIssue = await fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
-        // headers: {'Authorization': 'Basic ' + btoa('admin:admin')}}).then(resp=>resp.json());
-        // const fields = jiraIssue["fields"];
         const fields = await JiraAPI.getSecuredInfo(issueKey);
         showElement(widgetInfo);
         hideElement(placeholder);
         lastSelectedWidgetId = selectedWidget.id;
         widgetName.innerText = "Secure Info for "+issueKey;
-        fields.forEach(field=>{
+        fields.sort((a,b)=>{
+          if(!a.row && !b.row) return 0;
+          if(a.row && !b.row) return -1;
+          if(!a.row && b.row) return -1;
+          if(a.row<b.row) return -1;
+          if(a.row>b.row) return 1;
+          return 0;
+        }).forEach(field=>{
           var descriptionHeaderElement = document.createElement("div");
           descriptionHeaderElement.style.cssText="margin-top: 7px;";
           
@@ -40,7 +43,6 @@ miro.onReady(async () => {
           var descriptionHeaderText = document.createTextNode(field.name);
           descriptionHeaderElementBold.appendChild(descriptionHeaderText);
           descriptionHeaderElement.appendChild(descriptionHeaderElementBold);
-          // var element = widgetInfo.getElementById("div1");
           widgetInfo.appendChild(descriptionHeaderElement);
 
           var descriptionElement = document.createElement("div");

@@ -26,9 +26,9 @@ const JiraAPI = {
             .then(data=>data["fields"])
             .then(fields=> 
                 [
-                    {name: 'Summary', value: fields['summary']},
+                    {name: 'Assignee', value:fields.assignee?fields.assignee.name:'undefined', row: 2},
+                    {name: 'Summary', value: fields['summary'], row:1},
                     {name: 'Priority', value: fields.priority?fields.priority.name:'undefined'},
-                    {name: 'Assignee', value:fields.assignee?fields.assignee.name:'undefined'},
                     {name: 'Description', value: fields['description']}
                 ]
             );
