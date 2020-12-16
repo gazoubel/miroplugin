@@ -1,8 +1,15 @@
+
+
 let lastSelectedWidgetId
 let widgetName = document.querySelector('#widget-name')
 let widgetInfo = document.querySelector('.widget-info')
 let description = document.querySelector('#description')
 let placeholder = document.querySelector('.no-selected-widget')
+
+window.parent.document.getElementsByClassName('iframe-extension-point')[0].style.height='94%';
+window.parent.document.getElementsByClassName('iframe-extension-point')[0].style.paddingTop='15px';
+// padding-top: 15px;
+//     height: 80%;
 
 function showElement(el) {
   el.style.display = 'block'
