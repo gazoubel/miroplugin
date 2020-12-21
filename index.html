@@ -5,21 +5,6 @@
     <script src="./JiraAPI.js"></script>
     <script>
 	
-	// async function getCardDataFromJira(issueKey) {
-	// 	const fields = await JiraAPI.getBasicInfo(issueKey);
-		
-	// 	return {
-	// 		title: fields.summary, 
-	// 		clientVisible: true,
-	// 		card: {"customFields":[
-	// 			{"value":fields.status.name,"tooltip":"Status","fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},
-	// 			{"value":issueKey,"iconUrl":fields.issuetype.iconUrl,"tooltip":"Jira issue ("+fields.issuetype.name+")","fieldType":"string"},
-	// 			{"value":"","iconUrl": fields.priority.iconUrl,"tooltip":fields.priority.name,"fieldType":"string"},
-	// 			{"value":fields.assignee==null?'undefined':fields.assignee.name,"iconUrl":fields.assignee==null?"":fields.assignee.avatarUrl,"tooltip":"Assignee","fieldType":"string","roundedIcon":true}] }
-	// 	};
-		
-	// }
-	
 	async function syncCardData(appIdKey, widget) {
 		const issueKey = widget.metadata[appIdKey].issueKey;
 		const cardData = await JiraAPI.getCardDataFromJira(issueKey);
@@ -60,7 +45,8 @@
 </svg>`,
 							onClick: () => {
 								miro.showNotification("Refreshing card data...");
-								syncCardData(appIdKey, firstWidget).then(()=>miro.showNotification("Card data refresh finished"));
+								syncCardData(appIdKey, firstWidget)
+									.then(()=>miro.showNotification("Card data refresh finished"));
 							},
 						}
 					];
@@ -71,11 +57,7 @@
 					title: 'Add jira issue',
 					svgIcon: '<circle cx="12" cy="12" r="9" fill="none" fill-rule="evenodd" stroke="currentColor" stroke-width="2"/>',
 					onClick: async () => {
-						// miro.board.ui.openLibrary('add-issue-modal.html', {title: 'Select Jira Issue'})
 						miro.board.ui.openModal("add-issue-modal.html", { title: 'Select Jira Issue', height: '200', width: '300'});
-						// let issueKey = prompt("Please enter the issue key");
-						// const cardData = await JiraAPI.getCardDataFromJira(issueKey);
-						// miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
 					}
 				},
 				toolbar: {
@@ -88,9 +70,6 @@
 </svg>`,
 					onClick: async () => {
 						miro.board.ui.openLibrary('add-issue-modal.html', {title: 'Select Jira Issue', height: '300px', width:'400px'})
-						// let issueKey = prompt("Please enter the issue key");
-						// const cardData = await JiraAPI.getCardDataFromJira(issueKey);
-						// miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
 					}
 				}
 			}

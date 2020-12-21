@@ -8,11 +8,6 @@
     <style>
     </style>
     <script>
-      
-
-        // window.parent.document.getElementsByClassName('iframe-extension-point')[0].style.height='94%';
-        // window.parent.document.getElementsByClassName('iframe-extension-point')[0].style.paddingTop='15px';
-
         async function createMiroCard(){
             const appId = await miro.getClientId();
             const appIdKey = appId.toString();
@@ -26,9 +21,6 @@
                   console.log(JSON.stringify(error));
                   miro.showNotification("Issue not found!");
               });
-
-            // const cardData = await JiraAPI.getCardDataFromJira(issueKey);
-            // miro.board.widgets.create({...{type: 'card', metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData});
         }
     </script>
   </head>
@@ -38,6 +30,5 @@
     <input id="issue-key" class="miro-input miro-input--primary" placeholder="enter Jira issue key" style="margin: 5px;">
     <button id="addJiraIssue" class="miro-btn miro-btn--primary miro-btn--medium" onclick="createMiroCard()" style="margin: 5px;width: 40px; align-self: flex-end;">Add</button>
     <script src="https://miro.com/app/static/sdk.1.1.js"></script>
-    <!-- <script src="security-details.js"></script> -->
   </body>
 </html>

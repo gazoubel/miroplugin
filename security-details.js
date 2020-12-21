@@ -6,11 +6,6 @@ let widgetInfo = document.querySelector('.widget-info')
 let description = document.querySelector('#description')
 let placeholder = document.querySelector('.no-selected-widget')
 
-// window.parent.document.getElementsByClassName('iframe-extension-point')[0].style.height='94%';
-// window.parent.document.getElementsByClassName('iframe-extension-point')[0].style.paddingTop='15px';
-// padding-top: 15px;
-//     height: 80%;
-
 function showElement(el) {
   el.style.display = 'block'
 }
@@ -57,24 +52,6 @@ miro.onReady(async () => {
           descriptionElement.appendChild(descriptionText);
           widgetInfo.appendChild(descriptionElement);
         });
-        // for (fieldName in fields){
-        //   var descriptionHeaderElement = document.createElement("div");
-        //   descriptionHeaderElement.style.cssText="margin-top: 7px;";
-          
-        //   var descriptionHeaderElementBold = document.createElement("b");
-        //   var descriptionHeaderText = document.createTextNode(fieldName);
-        //   descriptionHeaderElementBold.appendChild(descriptionHeaderText);
-        //   descriptionHeaderElement.appendChild(descriptionHeaderElementBold);
-        //   // var element = widgetInfo.getElementById("div1");
-        //   widgetInfo.appendChild(descriptionHeaderElement);
-
-        //   var descriptionElement = document.createElement("div");
-        //   var descriptionText = document.createTextNode(fields[fieldName]);
-        //   descriptionElement.appendChild(descriptionText);
-        //   widgetInfo.appendChild(descriptionElement);
-        // }
-
-        // description.innerHTML = fields.description;
     } else {
         showElement(placeholder);
         hideElement(widgetInfo);
