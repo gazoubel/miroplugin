@@ -15,7 +15,7 @@
             let issueKey = issueKeyElement.value;
 
             return JiraAPI.getCardDataFromJira(issueKey)
-              .then(cardData=>miro.board.widgets.create({...{type: 'card', width: 500, height: 300, metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData}))
+              .then(cardData=>miro.board.widgets.create({...{type: 'card', width: 300, scale: 3, metadata:{[appId]: {linkTo: 'jira', issueKey: issueKey}}}, ...cardData}))
               .then(()=>miro.board.ui.closeModal())
               .catch(error=>{
                   console.log(JSON.stringify(error));
