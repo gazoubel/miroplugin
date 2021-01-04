@@ -46,7 +46,7 @@ const JiraAPI = {
         // return url;
     },
     getCardDataFromJira(issueKey) {
-        return getImage().then(url=>{
+        return this.getImage().then(url=>{
             return JiraAPI.getBasicInfo(issueKey).then(fields=>{
                 return {
                     title: fields.summary, 
