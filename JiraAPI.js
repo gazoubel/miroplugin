@@ -33,6 +33,12 @@ const JiraAPI = {
                 ]
             );
     },
+    async getImage() {
+        let image = await fetch('http://localhost:2990/rest/engapps/salesforceplugin/getPriorityImage', {method:'GET', headers: {'Authorization': 'Basic ' + btoa('admin:admin')}});
+        var blob = new Blob(image, { type: "image/png" });
+        var url = URL.createObjectURL(blob);
+        return url;
+    },
     getCardDataFromJira(issueKey) {
 		return JiraAPI.getBasicInfo(issueKey).then(fields=>{
             return {
