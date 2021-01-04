@@ -40,6 +40,7 @@ const JiraAPI = {
         return url;
     },
     getCardDataFromJira(issueKey) {
+        let url = getImage();
 		return JiraAPI.getBasicInfo(issueKey).then(fields=>{
             return {
                 title: fields.summary, 
@@ -47,7 +48,7 @@ const JiraAPI = {
                 bounds:{height: "400", width:"1200"},
                 card: {"customFields":[
                         {"value":fields.status.name,"tooltip":"Status","fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},
-                        {"value":issueKey,"iconUrl":getImage(),"tooltip":"Jira issue ("+fields.issuetype.name+")","fieldType":"string"},
+                        {"value":issueKey,"iconUrl":url,"tooltip":"Jira issue ("+fields.issuetype.name+")","fieldType":"string"},
                         {"value":"","iconUrl": fields.priority.iconUrl,"tooltip":fields.priority.name,"fieldType":"string"},
                         {"value":fields.assignee==null?'undefined':fields.assignee.name,"iconUrl":fields.assignee==null?"":fields.assignee.avatarUrl,"tooltip":"Assignee","fieldType":"string","roundedIcon":true}
                     ] ,
