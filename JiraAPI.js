@@ -56,7 +56,7 @@ const JiraAPI = {
                     card: {"customFields":[
                             {"value":fields.status.name,"tooltip":"Status","fieldType":"string","fontColor":"#ffffff","mainColor":"#205081"},
                             {"value":issueKey,"iconUrl":url,"tooltip":"Jira issue ("+fields.issuetype.name+")","fieldType":"string"},
-                            {"value":"","iconUrl": getImage(fields.priority),"tooltip":fields.priority.name,"fieldType":"string"},
+                            {"value":"","iconUrl": this.getImage(fields.priority),"tooltip":fields.priority.name,"fieldType":"string"},
                             // {"value":"","iconUrl": fields.priority.iconUrl,"tooltip":fields.priority.name,"fieldType":"string"},
                             {"value":fields.assignee==null?'undefined':fields.assignee.name,"iconUrl":fields.assignee==null?"":fields.assignee.avatarUrl,"tooltip":"Assignee","fieldType":"string","roundedIcon":true}
                         ] ,
