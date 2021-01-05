@@ -35,7 +35,7 @@ const JiraAPI = {
     },
     getImage(priority) {
         // let image = await 
-        return '/highest.png';
+        return 'https://gazoubel.github.io/miroplugin/highest.png';
         // return fetch('http://localhost:2990/rest/engapps/salesforceplugin/getPriorityImage', {method:'GET', headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
         // .then(image=>{
         //     var blob = new Blob(image, { type: "image/png" });
