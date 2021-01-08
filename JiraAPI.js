@@ -4,7 +4,10 @@ const JiraAPI = {
         // return fetch('https://localhost:44376/api/issue/'+issueKey, {method:'GET', 
         // headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
         return fetch('https://localhost:44376/api/issue/'+issueKey) 
-            .then(resp=>resp.json())
+            .then(resp=>{
+                console.log(resp);
+                return resp.json();
+            })
             .then(data=>data["fields"]);
     },
     // getSecuredInfo(issueKey) {
