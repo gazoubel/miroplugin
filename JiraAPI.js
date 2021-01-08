@@ -1,8 +1,9 @@
 const JiraAPI = {
     getBasicInfo(issueKey) {
         // return fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
-        return fetch('https://localhost:44376/api/issue/'+issueKey, {method:'GET', 
-        headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
+        // return fetch('https://localhost:44376/api/issue/'+issueKey, {method:'GET', 
+        // headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
+        return fetch('https://localhost:44376/api/issue/'+issueKey) 
             .then(resp=>resp.json())
             .then(data=>data["fields"]);
     },
@@ -22,8 +23,9 @@ const JiraAPI = {
     // },
     getSecuredInfo(issueKey) {
         // return fetch('http://localhost:2990/rest/api/latest/issue/'+issueKey, {method:'GET', 
-        return fetch('https://localhost:44376/api/issue/secured-fields/'+issueKey, {method:'GET', 
-        headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
+        // return fetch('https://localhost:44376/api/issue/secured-fields/'+issueKey, {method:'GET', 
+        // headers: {'Authorization': 'Basic ' + btoa('admin:admin')}})
+        return fetch('https://localhost:44376/api/issue/'+issueKey) 
             .then(resp=>resp.json())
             .then(data=>data["fields"])
             .then(fields=> 
